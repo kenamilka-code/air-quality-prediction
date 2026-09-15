@@ -13,17 +13,61 @@ st.write(
 )
 
 # Input values
-pt08_s1 = st.number_input("PT08.S1(CO)", value=1000.0)
-c6h6 = st.number_input("C6H6(GT)", value=10.0)
-pt08_s2 = st.number_input("PT08.S2(NMHC)", value=900.0)
-nox = st.number_input("NOx(GT)", value=150.0)
-pt08_s3 = st.number_input("PT08.S3(NOx)", value=800.0)
-no2 = st.number_input("NO2(GT)", value=100.0)
-pt08_s4 = st.number_input("PT08.S4(NO2)", value=1200.0)
-pt08_s5 = st.number_input("PT08.S5(O3)", value=1000.0)
-temperature = st.number_input("Temperature (T)", value=20.0)
-humidity = st.number_input("Relative Humidity (RH)", value=50.0)
-absolute_humidity = st.number_input("Absolute Humidity (AH)", value=1.0)
+# Input values
+pt08_s1 = st.number_input(
+    "CO Sensor Reading (PT08.S1)",
+    value=1000.0
+)
+
+c6h6 = st.number_input(
+    "Benzene Concentration (C6H6)",
+    value=10.0
+)
+
+pt08_s2 = st.number_input(
+    "NMHC Sensor Reading (PT08.S2)",
+    value=900.0
+)
+
+nox = st.number_input(
+    "Nitrogen Oxides (NOx)",
+    value=150.0
+)
+
+pt08_s3 = st.number_input(
+    "NOx Sensor Reading (PT08.S3)",
+    value=800.0
+)
+
+no2 = st.number_input(
+    "Nitrogen Dioxide (NO2)",
+    value=100.0
+)
+
+pt08_s4 = st.number_input(
+    "NO2 Sensor Reading (PT08.S4)",
+    value=1200.0
+)
+
+pt08_s5 = st.number_input(
+    "Ozone Sensor Reading (PT08.S5)",
+    value=1000.0
+)
+
+temperature = st.number_input(
+    "Temperature (°C)",
+    value=20.0
+)
+
+humidity = st.number_input(
+    "Relative Humidity (%)",
+    value=50.0
+)
+
+absolute_humidity = st.number_input(
+    "Absolute Humidity",
+    value=1.0
+)
 
 if st.button("Predict Air Quality"):
 
