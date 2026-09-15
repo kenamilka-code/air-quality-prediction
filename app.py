@@ -2,18 +2,17 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# Load the trained XGBoost model
+# Load the trained model
 model = joblib.load("air_quality_xgboost_model.pkl")
 
-# Page title
 st.title("🌍 Air Quality Prediction")
 
 st.write(
     "Enter the air-quality and environmental measurements below "
-    "to predict the carbon monoxide (CO) concentration."
+    "to predict carbon monoxide (CO) concentration."
 )
 
-# Input fields
+# Input values
 pt08_s1 = st.number_input("PT08.S1(CO)", value=1000.0)
 c6h6 = st.number_input("C6H6(GT)", value=10.0)
 pt08_s2 = st.number_input("PT08.S2(NMHC)", value=900.0)
@@ -26,10 +25,8 @@ temperature = st.number_input("Temperature (T)", value=20.0)
 humidity = st.number_input("Relative Humidity (RH)", value=50.0)
 absolute_humidity = st.number_input("Absolute Humidity (AH)", value=1.0)
 
-# Prediction button
-if st.button("Predict CO"):
+if st.button("Predict Air Quality"):
 
-    # Put the inputs in the same order used during training
     input_data = pd.DataFrame([{
         "PT08.S1(CO)": pt08_s1,
         "C6H6(GT)": c6h6,
@@ -44,8 +41,43 @@ if st.button("Predict CO"):
         "AH": absolute_humidity
     }])
 
-    # Make the prediction
+    # Make prediction
     prediction = model.predict(input_data)[0]
 
-    # Display the result
-    st.success(f"Predicted CO concentration: {prediction:.2f}")
+    # Display predicted CO
+    st.metric(
+        "Predicted CO Concentration",
+        f"{prediction:.2f} mg/m³"
+    )
+
+    # Interpret the prediction
+    if prediction < 2:
+        st.success("🟢 Lower CO Concentration")
+        st.write(
+            "The predicted CO concentration is relatively low. "
+            "This suggests lower pollution from carbon monoxide "
+            "and conditions that are more likely to be suitable "
+            "for normal daily activities."
+        )
+
+    elif prediction < 4:
+        st.warning("🟡 Moderate CO Concentration")
+        st.write(
+            "The predicted CO concentration is moderate. "
+            "This suggests that some carbon monoxide pollution "
+            "may be present. Consider reducing prolonged exposure "
+            "to major pollution sources such as heavy traffic."
+        )
+
+    else:
+        st.error("🔴 High CO Concentration")
+        st.write(
+            "The predicted CO concentration is relatively high. "
+            "This suggests elevated carbon monoxide pollution. "
+            "Extra caution around major pollution sources is recommended."
+        )
+
+    st.caption(
+        "The interpretation is based on simplified project-level "
+        "CO ranges and is not an official health-standard classification."
+    )
