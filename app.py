@@ -13,10 +13,10 @@ st.write(
 )
 
 # Input values
-# Input values
 pt08_s1 = st.number_input(
-    "CO Sensor Reading (PT08.S1)",
+    "CO Sensor Measurement (PT08.S1)",
     value=1000.0
+)
 )
 
 c6h6 = st.number_input(
